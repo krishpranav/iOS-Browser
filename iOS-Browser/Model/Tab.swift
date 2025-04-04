@@ -12,7 +12,7 @@ struct Tab: Identifiable, Hashable {
     var title: String
     var url: URL?
 
-    init(id: UUID, title: String = "New Tab", url: URL? = nil) {
+    init(id: UUID = UUID(), title: String = "New Tab", url: URL? = nil) {
         self.id = id
         self.title = title
         self.url = url
