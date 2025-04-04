@@ -18,6 +18,11 @@ class TabViewModel: ObservableObject {
 
     private var webView: WKWebView?
 
+    func setWebView(_ webView: WKWebView) {
+        self.webView = webView
+        updateNavigationState()
+    }
+
     func loadURL(_ url: URL) {
         currentURL = url
         addressBarText = url.absoluteString
@@ -26,14 +31,23 @@ class TabViewModel: ObservableObject {
 
     func goBack() {
         webView?.goBack()
-        updateNavigationStack()
+        updateNavigationState()
+    }
+
+    func goForward() {
+        webView?.goForward()
+        updateNavigationState()
+    }
+
+    func reload() {
+        webView?.reload()
     }
 
     func stopLoading() {
         webView?.stopLoading()
     }
 
-    func updateNavigationStack() {
+    func updateNavigationState() {
         canGoBack = webView?.canGoBack ?? false
         canGoForward = webView?.canGoForward ?? false
     }
@@ -42,7 +56,7 @@ class TabViewModel: ObservableObject {
         if let url = URL(string: text), url.scheme != nil {
             loadURL(url)
         } else {
-            let searchQuery = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            let searchQuery = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
             if let url = URL(string: "https://www.google.com/search?q=\(searchQuery)") {
                 loadURL(url)
             }
