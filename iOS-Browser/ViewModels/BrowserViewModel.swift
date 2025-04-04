@@ -15,6 +15,8 @@ class BrowserViewModel: ObservableObject {
     @Published var bookmarks: [Bookmark] = []
     @Published var history: [HistoryItem] = []
     @Published var showSettings = false
+    @Published var currentURL: URL?
+    @Published var pageTitle: String?
 
     var selectedTab: Tab? {
         tabs.first { $0.id == selectedTabId }
@@ -88,5 +90,20 @@ class BrowserViewModel: ObservableObject {
     func clearHistory() {
         history.removeAll()
         saveHistory()
+    }
+
+    func search(text: String) {
+        guard !text.isEmpty else { return }
+
+        var url: URL?
+
+        if text.hasPrefix("http://") || text.hasPrefix("https://") {
+            url = URL(string: text)
+        } else {
+            let searchQuery = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? text
+            url = URL(string: "https://www.google.com/search?q=\(searchQuery)")
+        }
+
+        currentURL = url
     }
 }
