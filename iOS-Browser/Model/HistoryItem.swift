@@ -13,7 +13,7 @@ struct HistoryItem: Identifiable, Codable {
     var url: URL
     var date: Date
 
-    init(id: UUID, title: String, url: URL, date: Date = Date()) {
+    init(id: UUID = UUID(), title: String, url: URL, date: Date = Date()) {
         self.id = id
         self.title = title
         self.url = url
