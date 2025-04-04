@@ -20,6 +20,10 @@ struct Theme {
         appearance.backgroundColor = UIColor(Theme.background)
         appearance.titleTextAttributes = [.foregroundColor: UIColor(Theme.text)]
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor(Theme.text)]
-        
+
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        UINavigationBar.appearance().tintColor = UIColor(Theme.accent)
     }
 }
