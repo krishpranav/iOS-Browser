@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct iOS_BrowserApp: App {
+    init() {
+        Theme.navigationBarAppearance()
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            BrowserView()
+                .preferredColorScheme(.dark)
         }
     }
 }
